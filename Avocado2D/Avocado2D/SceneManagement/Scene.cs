@@ -122,6 +122,20 @@ namespace Avocado2D.SceneManagement
         }
 
         /// <summary>
+        /// Gets a gameobject from the scene.
+        /// </summary>
+        /// <param name="id">The id of the gameobject.</param>
+        /// <returns>Returns the gameobject.</returns>
+        public GameObject GetComponent(int id)
+        {
+            if (gameObjects.ContainsKey(id))
+            {
+                return gameObjects[id];
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Loads the content of the scene.
         /// </summary>
         /// <param name="content">The contentmanager of the scene.</param>

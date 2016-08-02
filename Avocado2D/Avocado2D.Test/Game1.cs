@@ -35,5 +35,10 @@ namespace Avocado2D.Test
         {
             base.LoadContent();
         }
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
     }
 }
