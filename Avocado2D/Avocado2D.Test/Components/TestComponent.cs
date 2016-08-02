@@ -21,7 +21,7 @@ namespace Avocado2D.Test.Components
 
             time -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (time <= 2)
+            if (time <= 0)
             {
                 GameObject.Dispose();
             }

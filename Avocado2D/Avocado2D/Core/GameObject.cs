@@ -198,6 +198,8 @@ namespace Avocado2D
         /// </summary>
         public void Dispose()
         {
+            components.Clear();
+            drawableComponents.Clear();
             Scene?.RemoveGameObject(this);
         }
     }

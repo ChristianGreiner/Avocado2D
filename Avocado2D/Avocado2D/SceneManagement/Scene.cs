@@ -42,6 +42,8 @@ namespace Avocado2D.SceneManagement
 
         #endregion EVENTS
 
+        private readonly List<GameObject> gameObjectsToAdd;
+        private readonly List<GameObject> gameObjectsToRemove;
         private readonly Dictionary<int, GameObject> gameObjects;
         private readonly GraphicsDevice graphicsDevice;
 
@@ -53,6 +55,9 @@ namespace Avocado2D.SceneManagement
             ClearColor = Color.Black;
             gameObjects = new Dictionary<int, GameObject>();
             graphicsDevice = game.GraphicsDevice;
+
+            gameObjectsToAdd = new List<GameObject>();
+            gameObjectsToRemove = new List<GameObject>();
         }
 
         /// <summary>
@@ -64,8 +69,7 @@ namespace Avocado2D.SceneManagement
             if (gameObject == null) return;
             gameObject.Scene = this;
             gameObject.Initialize();
-            gameObjects.Add(gameObject.Id, gameObject);
-            gameObject.Enabled = true;
+            gameObjectsToAdd.Add(gameObject);
             GameObjectAdded?.Invoke(this, new GameObjectEventArgs(gameObject));
         }
 
@@ -87,7 +91,7 @@ namespace Avocado2D.SceneManagement
         {
             if (gameObjects.ContainsKey(id))
             {
-                gameObjects.Remove(id);
+                gameObjectsToRemove.Add(gameObjects[id]);
             }
         }
 
@@ -119,7 +123,26 @@ namespace Avocado2D.SceneManagement
         /// <param name="gameTime">The gametime.</param>
         public virtual void Update(GameTime gameTime)
         {
-            //TODO: Remove gameobjects during looping throw the list
+            if (gameObjectsToAdd.Count > 0)
+            {
+                foreach (var gameObject in gameObjectsToAdd)
+                {
+                    gameObjects.Add(gameObject.Id, gameObject);
+                    gameObject.Enabled = true;
+                }
+                gameObjectsToAdd.Clear();
+            }
+
+            if (gameObjectsToRemove.Count > 0)
+            {
+                foreach (var gameObject in gameObjectsToRemove)
+                {
+                    gameObjects.Remove(gameObject.Id);
+                }
+
+                gameObjectsToRemove.Clear();
+            }
+
             foreach (var entries in gameObjects)
             {
                 var gameObj = entries.Value;
