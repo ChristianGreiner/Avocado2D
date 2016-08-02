@@ -53,6 +53,15 @@ namespace Avocado2D.Components
             ColorTint = Color.White;
         }
 
+        /// <summary>
+        /// Sets the texture origin to the center of the texture.
+        /// </summary>
+        public void CenterTexture()
+        {
+            if (texture == null) return;
+            TextureOrigin = new Vector2((float)texture.Width / 2, (float)texture.Height / 2);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (Texture == null) return;

@@ -136,5 +136,9 @@ namespace Avocado2D.Graphics
                 Matrix.CreateScale(Zoom, Zoom, 1) *
                 Matrix.CreateTranslation(new Vector3(Origin, 0.0f));
         }
+
+        public void Update(GameTime gameTime)
+        {
+        }
     }
 }

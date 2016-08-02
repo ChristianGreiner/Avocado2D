@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AvocadoGame.cs" />
+    <Compile Include="Components\Physics\Collider.cs" />
     <Compile Include="Components\TextureRenderer.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Core\DrawableComponent.cs" />
@@ -72,7 +73,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ToDo.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

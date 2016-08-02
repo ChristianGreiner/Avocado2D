@@ -15,8 +15,9 @@ namespace Avocado2D.Test.Components
 
         public override void Update(GameTime gameTime)
         {
+            var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             GameObject.Transform.Move(40, 40);
-            Health++;
+            GameObject.Transform.Rotation += 10f * delta;
         }
     }
 }

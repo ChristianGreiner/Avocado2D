@@ -1,10 +1,8 @@
 ﻿using Avocado2D.Components;
-using Avocado2D.Graphics.Viewports;
 using Avocado2D.SceneManagement;
 using Avocado2D.Test.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Avocado2D.Test
 {
@@ -27,6 +25,7 @@ namespace Avocado2D.Test
             var renderer = player.AddComponent<TextureRenderer>();
 
             renderer.Texture = Content.Load<Texture2D>("spaceship");
+            renderer.CenterTexture();
 
             scene.AddGameObject(player);
         }
