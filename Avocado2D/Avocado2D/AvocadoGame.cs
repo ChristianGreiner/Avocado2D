@@ -1,4 +1,5 @@
-﻿using Avocado2D.SceneManagement;
+﻿using Avocado2D.Input;
+using Avocado2D.SceneManagement;
 using Microsoft.Xna.Framework;
 
 namespace Avocado2D
@@ -21,6 +22,11 @@ namespace Avocado2D
         /// Gets the scenemanager of the game.
         /// </summary>
         public SceneManager SceneManager { get; private set; }
+
+        /// <summary>
+        /// Gets the inputmanager of the game.
+        /// </summary>
+        public InputManager Input { get; private set; }
 
         #endregion BUILDIN GAMECOMPONENTS
 
@@ -51,6 +57,11 @@ namespace Avocado2D
         protected override void Initialize()
         {
             base.Initialize();
+            Input = new InputManager(this)
+            {
+                UpdateOrder = 0
+            };
+            Components.Add(Input);
             SceneManager = new SceneManager(this)
             {
                 UpdateOrder = 1,

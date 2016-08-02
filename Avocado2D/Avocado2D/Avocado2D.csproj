@@ -62,6 +62,7 @@
     <Compile Include="Graphics\Viewports\ViewportAdapter.cs" />
     <Compile Include="Graphics\Viewports\ViewportType.cs" />
     <Compile Include="Graphics\Viewports\WindowViewportAdapter.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="SceneManagement\SceneEventArgs.cs" />
     <Compile Include="SceneManagement\Scene.cs" />
     <Compile Include="GameSettings.cs" />
