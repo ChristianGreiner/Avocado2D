@@ -1,4 +1,5 @@
 ﻿using Avocado2D.Components;
+using Avocado2D.Graphics.Viewports;
 using Avocado2D.SceneManagement;
 using Avocado2D.Test.Components;
 using Microsoft.Xna.Framework;
@@ -9,7 +10,7 @@ namespace Avocado2D.Test
 {
     public class Game1 : AvocadoGame
     {
-        public Game1() : base(new GameSettings())
+        public Game1() : base(new GameSettings() { })
         {
         }
 

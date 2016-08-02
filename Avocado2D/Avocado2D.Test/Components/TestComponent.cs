@@ -13,19 +13,9 @@ namespace Avocado2D.Test.Components
             base.Initialize();
         }
 
-        private float time = 2;
-
         public override void Update(GameTime gameTime)
         {
             GameObject.Transform.Move(40, 40);
-
-            time -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (time <= 0)
-            {
-                GameObject.Dispose();
-            }
-
             Health++;
         }
     }

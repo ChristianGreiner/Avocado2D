@@ -55,6 +55,13 @@
     <Compile Include="Core\ComponentEventArgs.cs" />
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\GameObjectEventArgs.cs" />
+    <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\SolidColorTexture.cs" />
+    <Compile Include="Graphics\Viewports\DefaultViewportAdapter.cs" />
+    <Compile Include="Graphics\Viewports\ScalingViewportAdapter.cs" />
+    <Compile Include="Graphics\Viewports\ViewportAdapter.cs" />
+    <Compile Include="Graphics\Viewports\ViewportType.cs" />
+    <Compile Include="Graphics\Viewports\WindowViewportAdapter.cs" />
     <Compile Include="SceneManagement\SceneEventArgs.cs" />
     <Compile Include="SceneManagement\Scene.cs" />
     <Compile Include="GameSettings.cs" />
@@ -64,9 +71,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

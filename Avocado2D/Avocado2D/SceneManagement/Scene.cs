@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Avocado2D.Graphics;
+using Avocado2D.Graphics.Viewports;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -28,6 +30,11 @@ namespace Avocado2D.SceneManagement
         /// </summary>
         public ContentManager Content { get; }
 
+        /// <summary>
+        /// Gets the camera of the scene.
+        /// </summary>
+        public Camera Camera { get; }
+
         #region EVENTS
 
         /// <summary>
@@ -53,11 +60,30 @@ namespace Avocado2D.SceneManagement
             Name = name;
             Content = new ContentManager(game.Services);
             ClearColor = Color.Black;
+
             gameObjects = new Dictionary<int, GameObject>();
             graphicsDevice = game.GraphicsDevice;
-
             gameObjectsToAdd = new List<GameObject>();
             gameObjectsToRemove = new List<GameObject>();
+
+            var settings = Game.GameSettings;
+            ViewportAdapter adapter = null;
+
+            switch (settings.ViewportType)
+            {
+                case ViewportType.Default:
+                    adapter = new DefaultViewportAdapter(Game.GraphicsDevice);
+                    break;
+
+                case ViewportType.Scaling:
+                    adapter = new ScalingViewportAdapter(game.GraphicsDevice, settings.VirtualResolution.X, settings.VirtualResolution.Y);
+                    break;
+
+                case ViewportType.Window:
+                    adapter = new WindowViewportAdapter(game.Window, graphicsDevice);
+                    break;
+            }
+            Camera = new Camera(adapter);
         }
 
         /// <summary>
@@ -162,7 +188,9 @@ namespace Avocado2D.SceneManagement
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             graphicsDevice.Clear(ClearColor);
-            spriteBatch.Begin();
+
+            spriteBatch.Begin(samplerState: SamplerState.PointWrap, transformMatrix: Camera.GetViewMatrix());
+
             foreach (var entries in gameObjects)
             {
                 var gameObj = entries.Value;
