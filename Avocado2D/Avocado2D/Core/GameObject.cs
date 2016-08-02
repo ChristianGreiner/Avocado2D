@@ -198,6 +198,7 @@ namespace Avocado2D
         /// </summary>
         public void Dispose()
         {
+            Scene?.RemoveGameObject(this);
         }
     }
 }

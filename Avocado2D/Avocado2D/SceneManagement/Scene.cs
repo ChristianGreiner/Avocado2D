@@ -55,6 +55,10 @@ namespace Avocado2D.SceneManagement
             graphicsDevice = game.GraphicsDevice;
         }
 
+        /// <summary>
+        /// Adds a gameobject to the scene.
+        /// </summary>
+        /// <param name="gameObject">The gameobject.</param>
         public void AddGameObject(GameObject gameObject)
         {
             if (gameObject == null) return;
@@ -63,6 +67,28 @@ namespace Avocado2D.SceneManagement
             gameObjects.Add(gameObject.Id, gameObject);
             gameObject.Enabled = true;
             GameObjectAdded?.Invoke(this, new GameObjectEventArgs(gameObject));
+        }
+
+        /// <summary>
+        /// Removes a gameobject from the scene.
+        /// </summary>
+        /// <param name="gameObject">The gameobject.</param>
+        public void RemoveGameObject(GameObject gameObject)
+        {
+            if (gameObject == null) return;
+            RemoveGameObject(gameObject.Id);
+        }
+
+        /// <summary>
+        /// Removes a gameobject from the scene.
+        /// </summary>
+        /// <param name="id">The id of the gameobject.</param>
+        public void RemoveGameObject(int id)
+        {
+            if (gameObjects.ContainsKey(id))
+            {
+                gameObjects.Remove(id);
+            }
         }
 
         /// <summary>
@@ -93,6 +119,7 @@ namespace Avocado2D.SceneManagement
         /// <param name="gameTime">The gametime.</param>
         public virtual void Update(GameTime gameTime)
         {
+            //TODO: Remove gameobjects during looping throw the list
             foreach (var entries in gameObjects)
             {
                 var gameObj = entries.Value;
