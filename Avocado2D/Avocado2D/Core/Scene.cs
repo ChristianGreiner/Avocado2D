@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace Avocado2D.SceneManagement
+namespace Avocado2D
 {
     public class Scene
     {

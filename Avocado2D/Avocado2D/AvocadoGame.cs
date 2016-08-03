@@ -1,5 +1,5 @@
 ﻿using Avocado2D.Input;
-using Avocado2D.SceneManagement;
+using Avocado2D.Managers;
 using Microsoft.Xna.Framework;
 
 namespace Avocado2D

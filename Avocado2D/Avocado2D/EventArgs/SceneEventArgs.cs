@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Avocado2D.SceneManagement
+namespace Avocado2D
 {
     public class SceneEventArgs : EventArgs
     {

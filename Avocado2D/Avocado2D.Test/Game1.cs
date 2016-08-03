@@ -1,5 +1,4 @@
 ﻿using Avocado2D.Components;
-using Avocado2D.SceneManagement;
 using Avocado2D.Test.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

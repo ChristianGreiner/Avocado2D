@@ -1,6 +1,4 @@
 ﻿using Avocado2D.Components;
-using Avocado2D.SceneManagement;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +68,6 @@ namespace Avocado2D
 
         private List<Component> components;
         private List<DrawableComponent> drawableComponents;
-
         private static int nextId;
 
         public GameObject(string name = null)
@@ -131,6 +128,7 @@ namespace Avocado2D
             {
                 return (T)components.Find(x => x == cmp);
             }
+
             if (cmp.GetType().IsSubclassOf(typeof(DrawableComponent)))
             {
                 var drawable = cmp as DrawableComponent;

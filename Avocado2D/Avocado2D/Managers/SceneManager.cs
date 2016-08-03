@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 
-namespace Avocado2D.SceneManagement
+namespace Avocado2D.Managers
 {
     public class SceneManager : DrawableGameComponent
     {
