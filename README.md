@@ -31,7 +31,7 @@ You can also inherit from the scene-class.
 
 public class MainMenu : Scene
 {
-  // do you stuff in the scene.
+  // do your stuff in the scene.
 }
 
 ```
