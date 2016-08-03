@@ -136,13 +136,12 @@ namespace Avocado2D
         /// <returns>Returns the added component.</returns>
         public T AddComponent<T>() where T : Component, new()
         {
-            var component = new T();
-
             // check if the gameobject owns alreday this type of component.
             if (components.ContainsKey(typeof(T)))
             {
                 return (T)components[typeof(T)];
             }
+            var component = new T();
 
             InitializeComponent(component);
 
@@ -164,6 +163,8 @@ namespace Avocado2D
 
         private void InitializeComponent(Component component)
         {
+            component.GameObject = this;
+
             // check if the component is an updatable component
             if (component.GetType().IsSubclassOf(typeof(Behavior)))
             {
@@ -177,8 +178,6 @@ namespace Avocado2D
                 var drawable = component as Drawable;
                 tmpDrawables.Add(drawable);
             }
-
-            component.GameObject = this;
         }
 
         /// <summary>

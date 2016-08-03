@@ -29,11 +29,18 @@ namespace Avocado2D
             get { return requiredComponents; }
         }
 
-        private List<Type> requiredComponents;
+        private readonly List<Type> requiredComponents;
 
         public Component()
         {
             requiredComponents = new List<Type>();
+
+            var requiredAttributes = (RequiredComponentAttribute[])Attribute.GetCustomAttributes(this.GetType(), typeof(RequiredComponentAttribute));
+
+            foreach (var attribute in requiredAttributes)
+            {
+                requiredComponents.Add(attribute.RequiredComponentType);
+            }
         }
 
         /// <summary>
@@ -43,13 +50,6 @@ namespace Avocado2D
         {
             Initialized = true;
             Enabled = true;
-
-            var requiredAttributes = (RequiredComponentAttribute[])Attribute.GetCustomAttributes(this.GetType(), typeof(RequiredComponentAttribute));
-
-            foreach (var attribute in requiredAttributes)
-            {
-                requiredComponents.Add(attribute.RequiredComponentType);
-            }
         }
 
         /// <summary>
