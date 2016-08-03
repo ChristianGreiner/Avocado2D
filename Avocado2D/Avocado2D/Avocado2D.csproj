@@ -56,6 +56,7 @@
     <Compile Include="Core\Drawable.cs" />
     <Compile Include="Core\Component.cs" />
     <Compile Include="Core\RequiredComponentAttribute.cs" />
+    <Compile Include="EventArgs\CollisionEventArgs.cs" />
     <Compile Include="EventArgs\ComponentEventArgs.cs" />
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="EventArgs\GameObjectEventArgs.cs" />
@@ -71,9 +72,13 @@
     <Compile Include="Core\Scene.cs" />
     <Compile Include="GameSettings.cs" />
     <Compile Include="Managers\BehaviorManager.cs" />
+    <Compile Include="Managers\CollisionManager.cs" />
     <Compile Include="Managers\GameObjectManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="Managers\RenderManager.cs" />
+    <Compile Include="Physics\Collision\CollisionContact.cs" />
+    <Compile Include="Physics\Collision\CollisionData.cs" />
+    <Compile Include="Physics\Collision\CollisionGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\SceneManager.cs" />
     <Compile Include="Util\RectangleF.cs" />

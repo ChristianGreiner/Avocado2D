@@ -185,17 +185,11 @@ namespace Avocado2D
         /// <returns>Returns the component.</returns>
         public T GetComponent<T>() where T : Component
         {
-            return (T)components[typeof(T)];
-        }
-
-        /// <summary>
-        /// Gets a component from the gameobject.
-        /// </summary>
-        /// <param name="type">The type of the component.</param>
-        /// <returns>Returns the component.</returns>
-        public Component GetComponent(Type type)
-        {
-            return components[type];
+            if (components.ContainsKey(typeof(T)))
+            {
+                return (T)components[typeof(T)];
+            }
+            return null;
         }
 
         /// <summary>

@@ -25,9 +25,7 @@ namespace Avocado2D.Managers
             this.scene = scene;
             this.camera = scene.Camera;
             this.graphicsDevice = graphicsDevice;
-
             drawables = new List<Drawable>();
-
             stopwatch = new Stopwatch();
         }
 

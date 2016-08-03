@@ -1,5 +1,7 @@
-﻿using Avocado2D.Util;
+﻿using Avocado2D.Physics.Collision;
+using Avocado2D.Util;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Avocado2D.Components
 {
@@ -22,6 +24,12 @@ namespace Avocado2D.Components
 
         private int width;
         private int height;
+
+        public override void OnInitialize()
+        {
+            base.OnInitialize();
+            Bounds = new RectangleF((Offset.X + GameObject.Transform.Position.X), (Offset.Y + GameObject.Transform.Position.Y), width, height);
+        }
 
         /// <summary>
         /// Sets the size of the colliders.

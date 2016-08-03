@@ -206,6 +206,11 @@ namespace Avocado2D.Util
                 bottom - top);
         }
 
+        public Vector2 Center()
+        {
+            return new Vector2(Width / 2, Height / 2);
+        }
+
         public Rectangle ToRectangle()
         {
             return new Rectangle((int)X, (int)Y, (int)Width, (int)Height);

@@ -58,9 +58,12 @@ namespace Avocado2D
         /// </summary>
         public BehaviorManager BehaviorManager { get; }
 
-        #endregion EVENTS
+        /// <summary>
+        /// Gets the collision manager of the scene.
+        /// </summary>
+        public CollisionManager CollisionManager { get; }
 
-        public int GameObjects => gameObjects.Count;
+        #endregion EVENTS
 
         private readonly List<GameObject> gameObjectsToAdd;
         private readonly List<GameObject> gameObjectsToRemove;
@@ -100,6 +103,7 @@ namespace Avocado2D
 
             BehaviorManager = new BehaviorManager(this);
             RenderManager = new RenderManager(this, graphicsDevice);
+            CollisionManager = new CollisionManager(this);
         }
 
         /// <summary>
@@ -179,6 +183,7 @@ namespace Avocado2D
         /// <param name="gameTime">The gametime.</param>
         public virtual void Update(GameTime gameTime)
         {
+            CollisionManager.Update(gameTime);
             BehaviorManager.Update(gameTime);
         }
 

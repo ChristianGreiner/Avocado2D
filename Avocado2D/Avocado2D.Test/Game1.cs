@@ -3,6 +3,7 @@ using Avocado2D.Test.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Avocado2D.Test
 {
@@ -24,6 +25,7 @@ namespace Avocado2D.Test
             SceneManager.SetActiveScene("Test");
 
             scene.AddGameObject(CreatePlayer(Vector2.Zero));
+            scene.AddGameObject(CreatePlayer(new Vector2(100, 100)));
         }
 
         private GameObject CreatePlayer(Vector2 position)
@@ -32,6 +34,8 @@ namespace Avocado2D.Test
             player.Transform.Position = position;
             player.AddComponent<TestComponent>();
             player.AddComponent<Rotator>();
+            var collider = player.AddComponent<Collider>();
+            collider.SetBounds(64, 64);
 
             var sprite = player.AddComponent<Sprite>();
             sprite.Texture = Content.Load<Texture2D>("spaceship");
@@ -47,13 +51,18 @@ namespace Avocado2D.Test
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            var keyboard = Keyboard.GetState();
 
             var state = Mouse.GetState();
-
+            var scene = SceneManager.GetScene("Test");
             if (state.LeftButton == ButtonState.Pressed)
             {
                 var player = CreatePlayer(state.Position.ToVector2());
-                SceneManager.GetScene("Test").AddGameObject(player);
+                scene.AddGameObject(player);
+            }
+
+            if (keyboard.IsKeyDown(Keys.Right))
+            {
             }
         }
 
