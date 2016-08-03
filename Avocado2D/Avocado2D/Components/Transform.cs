@@ -2,7 +2,7 @@
 
 namespace Avocado2D.Components
 {
-    public class Transform : Component
+    public class Transform : Behavior
     {
         /// <summary>
         /// Gets or sets the position of the gameobject.
@@ -44,8 +44,8 @@ namespace Avocado2D.Components
         /// <param name="gameTime">The gametime.</param>
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            base.Update(gameTime);
         }
     }
 }

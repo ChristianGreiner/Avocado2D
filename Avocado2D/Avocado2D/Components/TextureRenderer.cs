@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Avocado2D.Components
 {
-    public class TextureRenderer : DrawableComponent
+    public class TextureRenderer : Drawable
     {
         /// <summary>
         /// Gets or sets the texture that should be rendered.

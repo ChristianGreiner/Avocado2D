@@ -1,5 +1,6 @@
 ﻿using Avocado2D.Graphics;
 using Avocado2D.Graphics.Viewports;
+using Avocado2D.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +24,7 @@ namespace Avocado2D
         /// <summary>
         /// Gets or sets the clearcolor of the scene.
         /// </summary>
-        public Color ClearColor { get; set; }
+        public Color BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets the contentmanager of the scene.
@@ -47,6 +48,16 @@ namespace Avocado2D
         /// </summary>
         public EventHandler<GameObjectEventArgs> GameObjectRemoved { get; set; }
 
+        /// <summary>
+        /// Gets the rendermanager of the scene.
+        /// </summary>
+        public RenderManager RenderManager { get; }
+
+        /// <summary>
+        /// Gets the behaviormanager of the scene.
+        /// </summary>
+        public BehaviorManager BehaviorManager { get; }
+
         #endregion EVENTS
 
         private readonly List<GameObject> gameObjectsToAdd;
@@ -58,11 +69,11 @@ namespace Avocado2D
         {
             Game = game;
             Name = name;
+            graphicsDevice = game.GraphicsDevice;
             Content = new ContentManager(game.Services);
-            ClearColor = Color.Black;
+            BackgroundColor = Color.Black;
 
             gameObjects = new Dictionary<int, GameObject>();
-            graphicsDevice = game.GraphicsDevice;
             gameObjectsToAdd = new List<GameObject>();
             gameObjectsToRemove = new List<GameObject>();
 
@@ -84,6 +95,9 @@ namespace Avocado2D
                     break;
             }
             Camera = new Camera(adapter);
+
+            BehaviorManager = new BehaviorManager(this);
+            RenderManager = new RenderManager(this, graphicsDevice);
         }
 
         /// <summary>
@@ -94,8 +108,8 @@ namespace Avocado2D
         {
             if (gameObject == null) return;
             gameObject.Scene = this;
-            gameObject.Initialize();
             gameObjectsToAdd.Add(gameObject);
+            gameObject.Initialize();
             GameObjectAdded?.Invoke(this, new GameObjectEventArgs(gameObject));
         }
 
@@ -163,36 +177,7 @@ namespace Avocado2D
         /// <param name="gameTime">The gametime.</param>
         public virtual void Update(GameTime gameTime)
         {
-            if (gameObjectsToAdd.Count > 0)
-            {
-                foreach (var gameObject in gameObjectsToAdd)
-                {
-                    gameObjects.Add(gameObject.Id, gameObject);
-                    gameObject.Enabled = true;
-                }
-                gameObjectsToAdd.Clear();
-            }
-
-            if (gameObjectsToRemove.Count > 0)
-            {
-                foreach (var gameObject in gameObjectsToRemove)
-                {
-                    gameObjects.Remove(gameObject.Id);
-                }
-
-                gameObjectsToRemove.Clear();
-            }
-
-            foreach (var entries in gameObjects)
-            {
-                var gameObj = entries.Value;
-                if (!gameObj.Enabled) return;
-                foreach (var component in gameObj.Components)
-                {
-                    if (component.Enabled && component.Initialized)
-                        component.Update(gameTime);
-                }
-            }
+            BehaviorManager.Update(gameTime);
         }
 
         /// <summary>
@@ -201,21 +186,7 @@ namespace Avocado2D
         /// <param name="spriteBatch">The spritebatch.</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(ClearColor);
-
-            spriteBatch.Begin(samplerState: SamplerState.PointWrap, transformMatrix: Camera.GetViewMatrix());
-
-            foreach (var entries in gameObjects)
-            {
-                var gameObj = entries.Value;
-                if (!gameObj.Enabled) return;
-                foreach (var component in gameObj.DrawableComponents)
-                {
-                    if (component.Enabled && component.Initialized && component.Visible)
-                        component.Draw(spriteBatch);
-                }
-            }
-            spriteBatch.End();
+            RenderManager.Draw(spriteBatch);
         }
     }
 }

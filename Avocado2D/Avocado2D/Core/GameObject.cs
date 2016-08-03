@@ -1,4 +1,5 @@
 ﻿using Avocado2D.Components;
+using Avocado2D.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,21 +55,20 @@ namespace Avocado2D
         /// <summary>
         /// Gets all components of the gameobject.
         /// </summary>
-        public IReadOnlyList<Component> Components => components.ToArray();
-
-        /// <summary>
-        /// Gets all drawable components of the gameobject.
-        /// </summary>
-        public IReadOnlyList<DrawableComponent> DrawableComponents => drawableComponents.ToArray();
+        public IReadOnlyList<Component> Components => components.Values.ToArray();
 
         /// <summary>
         /// Gets the transform component of the gameobject.
         /// </summary>
         public Transform Transform { get; }
 
-        private List<Component> components;
-        private List<DrawableComponent> drawableComponents;
+        private readonly Dictionary<Type, Component> components;
         private static int nextId;
+
+        private RenderManager renderManager;
+        private BehaviorManager behaviorManager;
+        private List<Drawable> tmpDrawables;
+        private List<Behavior> tmpBehavior;
 
         public GameObject(string name = null)
         {
@@ -78,12 +78,11 @@ namespace Avocado2D
                 Name = "GameObject" + Id;
             }
 
-            components = new List<Component>();
+            components = new Dictionary<Type, Component>();
+            tmpDrawables = new List<Drawable>();
+            tmpBehavior = new List<Behavior>();
 
-            Transform = new Transform { GameObject = this };
-            components.Add(Transform);
-
-            drawableComponents = new List<DrawableComponent>();
+            Transform = AddComponent<Transform>();
 
             ComponentUpdateOrderChanged += (sender, args) => SortByUpdateOrder();
             ComponentDrawOrderChanged += (sender, args) => SortByDrawOrder();
@@ -91,12 +90,12 @@ namespace Avocado2D
 
         private void SortByDrawOrder()
         {
-            this.drawableComponents = drawableComponents.OrderBy(x => x.DrawOrder).ToList();
+            //this.drawableComponents = drawableComponents.OrderBy(x => x.DrawOrder).ToList();
         }
 
         private void SortByUpdateOrder()
         {
-            this.components = components.OrderBy(x => x.UpdateOrder).ToList();
+            behaviorManager?.SortByUpdateOrder();
         }
 
         /// <summary>
@@ -104,6 +103,24 @@ namespace Avocado2D
         /// </summary>
         public void Initialize()
         {
+            renderManager = Scene.RenderManager;
+            behaviorManager = Scene.BehaviorManager;
+
+            foreach (var behavior in tmpBehavior)
+            {
+                behaviorManager.AddBehavior(behavior);
+            }
+            tmpBehavior.Clear();
+            tmpBehavior = null;
+
+            foreach (var drawable in tmpDrawables)
+            {
+                renderManager.AddDrawable(drawable);
+            }
+
+            tmpDrawables.Clear();
+            tmpDrawables = null;
+
             foreach (var component in Components.ToArray())
             {
                 component.Initialize();
@@ -124,18 +141,24 @@ namespace Avocado2D
                 GameObject = this
             };
 
-            if (components.Contains(cmp))
+            if (components.ContainsKey(typeof(T)))
             {
-                return (T)components.Find(x => x == cmp);
+                return (T)components[typeof(T)];
             }
 
-            if (cmp.GetType().IsSubclassOf(typeof(DrawableComponent)))
+            if (cmp.GetType().IsSubclassOf(typeof(Behavior)))
             {
-                var drawable = cmp as DrawableComponent;
-                drawableComponents.Add(drawable);
+                var behavior = cmp as Behavior;
+                tmpBehavior.Add(behavior);
             }
 
-            components.Add(cmp);
+            if (cmp.GetType().IsSubclassOf(typeof(Drawable)))
+            {
+                var drawable = cmp as Drawable;
+                tmpDrawables.Add(drawable);
+            }
+
+            components.Add(typeof(T), cmp);
             ComponentAdded?.Invoke(this, new ComponentEventArgs(cmp));
 
             return cmp;
@@ -148,7 +171,7 @@ namespace Avocado2D
         /// <returns>Returns the component.</returns>
         public T GetComponent<T>() where T : Component
         {
-            return (T)components.Find(x => x.GetType() == typeof(T));
+            return (T)components[typeof(T)];
         }
 
         /// <summary>
@@ -158,7 +181,7 @@ namespace Avocado2D
         /// <returns>Returns the component.</returns>
         public Component GetComponent(Type type)
         {
-            return components.Find(x => x.GetType() == type);
+            return components[type];
         }
 
         /// <summary>
@@ -177,18 +200,24 @@ namespace Avocado2D
         /// <param name="type">The type of the gameobject.</param>
         public void RemoveComponent(Type type)
         {
-            var cmp = components.Find(x => x.GetType() == type);
+            var cmp = components[type];
 
             if (cmp == null) return;
 
-            if (cmp.GetType().IsSubclassOf(typeof(DrawableComponent)))
+            if (cmp.GetType().IsSubclassOf(typeof(Behavior)))
             {
-                var drawable = cmp as DrawableComponent;
-                drawableComponents.Remove(drawable);
+                var behavior = cmp as Behavior;
+                behaviorManager.RemoveBehavior(behavior);
+            }
+
+            if (cmp.GetType().IsSubclassOf(typeof(Drawable)))
+            {
+                var drawable = cmp as Drawable;
+                renderManager.RemoveDrawable(drawable);
             }
 
             ComponentRemoved?.Invoke(this, new ComponentEventArgs(cmp));
-            components.Remove(cmp);
+            components.Remove(type);
         }
 
         /// <summary>
@@ -197,7 +226,6 @@ namespace Avocado2D
         public void Dispose()
         {
             components.Clear();
-            drawableComponents.Clear();
             Scene?.RemoveGameObject(this);
         }
     }

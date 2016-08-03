@@ -51,7 +51,8 @@
     <Compile Include="Components\Physics\Collider.cs" />
     <Compile Include="Components\TextureRenderer.cs" />
     <Compile Include="Components\Transform.cs" />
-    <Compile Include="Core\DrawableComponent.cs" />
+    <Compile Include="Core\Behavior.cs" />
+    <Compile Include="Core\Drawable.cs" />
     <Compile Include="Core\Component.cs" />
     <Compile Include="EventArgs\ComponentEventArgs.cs" />
     <Compile Include="Core\GameObject.cs" />
@@ -67,6 +68,10 @@
     <Compile Include="EventArgs\SceneEventArgs.cs" />
     <Compile Include="Core\Scene.cs" />
     <Compile Include="GameSettings.cs" />
+    <Compile Include="Managers\BehaviorManager.cs" />
+    <Compile Include="Managers\GameObjectManager.cs" />
+    <Compile Include="Managers\Manager.cs" />
+    <Compile Include="Managers\RenderManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\SceneManager.cs" />
   </ItemGroup>
@@ -75,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -21,35 +21,12 @@ namespace Avocado2D
         public bool Enabled { get; set; }
 
         /// <summary>
-        /// Determines the update order of the component.
-        /// </summary>
-        public int UpdateOrder
-        {
-            get { return updateOrder; }
-            set
-            {
-                updateOrder = value;
-                GameObject?.ComponentUpdateOrderChanged.Invoke(this, new ComponentEventArgs(this));
-            }
-        }
-
-        private int updateOrder;
-
-        /// <summary>
         /// Initializes the component.
         /// </summary>
         public virtual void Initialize()
         {
             Initialized = true;
             Enabled = true;
-        }
-
-        /// <summary>
-        /// Updates the component.
-        /// </summary>
-        /// <param name="gameTime"></param>
-        public virtual void Update(GameTime gameTime)
-        {
         }
 
         /// <summary>

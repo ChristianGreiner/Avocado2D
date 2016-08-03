@@ -15,11 +15,12 @@ namespace Avocado2D.Test
         {
             base.Initialize();
 
-            var scene = new Scene("Test", this) { ClearColor = Color.CornflowerBlue };
+            var scene = new Scene("Test", this) { BackgroundColor = Color.CornflowerBlue };
             SceneManager.AddScene(scene);
             SceneManager.SetActiveScene("Test");
 
-            var player = new GameObject("Player");
+            var player = new GameObject();
+
             player.AddComponent<TestComponent>();
             var renderer = player.AddComponent<TextureRenderer>();
 

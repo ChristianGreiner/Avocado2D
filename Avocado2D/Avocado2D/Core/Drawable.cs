@@ -2,7 +2,7 @@
 
 namespace Avocado2D
 {
-    public class DrawableComponent : Component
+    public class Drawable : Component
     {
         /// <summary>
         /// Determines if the component is visible.

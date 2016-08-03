@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Avocado2D.Test.Components
 {
-    public class TestComponent : Component
+    public class TestComponent : Behavior
     {
         public int Health { get; set; }
 
