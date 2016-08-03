@@ -22,10 +22,10 @@ namespace Avocado2D.Test
             var player = new GameObject();
 
             player.AddComponent<TestComponent>();
-            var renderer = player.AddComponent<TextureRenderer>();
+            player.AddComponent<Rotator>();
 
-            renderer.Texture = Content.Load<Texture2D>("spaceship");
-            renderer.CenterTexture();
+            var sprite = player.AddComponent<Sprite>();
+            sprite.Texture = Content.Load<Texture2D>("spaceship");
 
             scene.AddGameObject(player);
         }

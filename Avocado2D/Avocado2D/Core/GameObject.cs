@@ -90,7 +90,7 @@ namespace Avocado2D
 
         private void SortByDrawOrder()
         {
-            //this.drawableComponents = drawableComponents.OrderBy(x => x.DrawOrder).ToList();
+            renderManager?.SortByDrawOrder();
         }
 
         private void SortByUpdateOrder()
@@ -136,32 +136,49 @@ namespace Avocado2D
         /// <returns>Returns the added component.</returns>
         public T AddComponent<T>() where T : Component, new()
         {
-            var cmp = new T()
-            {
-                GameObject = this
-            };
+            var component = new T();
 
+            // check if the gameobject owns alreday this type of component.
             if (components.ContainsKey(typeof(T)))
             {
                 return (T)components[typeof(T)];
             }
 
-            if (cmp.GetType().IsSubclassOf(typeof(Behavior)))
+            InitializeComponent(component);
+
+            //BUG: Required component doesn't work ...
+            foreach (var cmpType in component.RequiredComponents)
             {
-                var behavior = cmp as Behavior;
+                if (!components.ContainsKey(cmpType))
+                {
+                    var newCmp = (Component)Activator.CreateInstance(cmpType);
+                    InitializeComponent(newCmp);
+                }
+            }
+
+            components.Add(typeof(T), component);
+            ComponentAdded?.Invoke(this, new ComponentEventArgs(component));
+
+            return component;
+        }
+
+        private void InitializeComponent(Component component)
+        {
+            // check if the component is an updatable component
+            if (component.GetType().IsSubclassOf(typeof(Behavior)))
+            {
+                var behavior = component as Behavior;
                 tmpBehavior.Add(behavior);
             }
 
-            if (cmp.GetType().IsSubclassOf(typeof(Drawable)))
+            // check if the component is an drawable component
+            if (component.GetType().IsSubclassOf(typeof(Drawable)))
             {
-                var drawable = cmp as Drawable;
+                var drawable = component as Drawable;
                 tmpDrawables.Add(drawable);
             }
 
-            components.Add(typeof(T), cmp);
-            ComponentAdded?.Invoke(this, new ComponentEventArgs(cmp));
-
-            return cmp;
+            component.GameObject = this;
         }
 
         /// <summary>

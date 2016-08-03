@@ -49,11 +49,12 @@
   <ItemGroup>
     <Compile Include="AvocadoGame.cs" />
     <Compile Include="Components\Physics\Collider.cs" />
-    <Compile Include="Components\TextureRenderer.cs" />
+    <Compile Include="Components\Sprite.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Core\Behavior.cs" />
     <Compile Include="Core\Drawable.cs" />
     <Compile Include="Core\Component.cs" />
+    <Compile Include="Core\RequiredComponentAttribute.cs" />
     <Compile Include="EventArgs\ComponentEventArgs.cs" />
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="EventArgs\GameObjectEventArgs.cs" />

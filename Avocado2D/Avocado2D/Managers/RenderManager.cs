@@ -1,13 +1,14 @@
 ﻿using Avocado2D.Graphics;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Avocado2D.Managers
 {
     public class RenderManager : Manager
     {
         private readonly Camera camera;
-        private readonly List<Drawable> drawables;
+        private List<Drawable> drawables;
         // List<DrawableUI> ...
 
         private readonly Scene scene;
@@ -19,6 +20,11 @@ namespace Avocado2D.Managers
             this.camera = scene.Camera;
             this.graphicsDevice = graphicsDevice;
             drawables = new List<Drawable>();
+        }
+
+        public void SortByDrawOrder()
+        {
+            this.drawables = drawables.OrderBy(x => x.DrawOrder).ToList();
         }
 
         /// <summary>

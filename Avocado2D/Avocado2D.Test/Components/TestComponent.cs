@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Avocado2D.Test.Components
 {
+    [RequiredComponent(typeof(Rotator))]
     public class TestComponent : Behavior
     {
         public int Health { get; set; }
@@ -17,7 +18,6 @@ namespace Avocado2D.Test.Components
         {
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             GameObject.Transform.Move(40, 40);
-            GameObject.Transform.Rotation += 10f * delta;
         }
     }
 }

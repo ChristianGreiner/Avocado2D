@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Avocado2D
 {
@@ -21,12 +22,34 @@ namespace Avocado2D
         public bool Enabled { get; set; }
 
         /// <summary>
+        /// Gets a list of all required components for this component.
+        /// </summary>
+        public IReadOnlyList<Type> RequiredComponents
+        {
+            get { return requiredComponents; }
+        }
+
+        private List<Type> requiredComponents;
+
+        public Component()
+        {
+            requiredComponents = new List<Type>();
+        }
+
+        /// <summary>
         /// Initializes the component.
         /// </summary>
         public virtual void Initialize()
         {
             Initialized = true;
             Enabled = true;
+
+            var requiredAttributes = (RequiredComponentAttribute[])Attribute.GetCustomAttributes(this.GetType(), typeof(RequiredComponentAttribute));
+
+            foreach (var attribute in requiredAttributes)
+            {
+                requiredComponents.Add(attribute.RequiredComponentType);
+            }
         }
 
         /// <summary>

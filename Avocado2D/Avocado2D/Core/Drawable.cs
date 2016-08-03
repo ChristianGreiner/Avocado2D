@@ -24,6 +24,11 @@ namespace Avocado2D
 
         private int drawOrder;
 
+        public Drawable()
+        {
+            Visible = true;
+        }
+
         /// <summary>
         /// Draws the component.
         /// </summary>
