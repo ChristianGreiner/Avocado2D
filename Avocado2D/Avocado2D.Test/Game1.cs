@@ -8,6 +8,9 @@ namespace Avocado2D.Test
 {
     public class Game1 : AvocadoGame
     {
+        private SpriteFont font;
+        private SpriteBatch batch;
+
         public Game1() : base(new GameSettings() { })
         {
         }
@@ -15,7 +18,7 @@ namespace Avocado2D.Test
         protected override void Initialize()
         {
             base.Initialize();
-
+            batch = new SpriteBatch(GraphicsDevice);
             var scene = new Scene("Test", this) { BackgroundColor = Color.CornflowerBlue };
             SceneManager.AddScene(scene);
             SceneManager.SetActiveScene("Test");
@@ -37,6 +40,7 @@ namespace Avocado2D.Test
 
         protected override void LoadContent()
         {
+            font = Content.Load<SpriteFont>("DebugFont");
             base.LoadContent();
         }
 
@@ -51,6 +55,14 @@ namespace Avocado2D.Test
                 var player = CreatePlayer(state.Position.ToVector2());
                 SceneManager.GetScene("Test").AddGameObject(player);
             }
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+
+            batch.Begin();
+            batch.End();
         }
     }
 }

@@ -1,17 +1,22 @@
 ﻿using Avocado2D.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Avocado2D.Managers
 {
     public class RenderManager : Manager
     {
+        public TimeSpan DrawTime { get; private set; }
+
         private readonly Camera camera;
         private List<Drawable> drawables;
         // List<DrawableUI> ...
 
+        private readonly Stopwatch stopwatch;
         private readonly Scene scene;
         private readonly GraphicsDevice graphicsDevice;
 
@@ -22,6 +27,8 @@ namespace Avocado2D.Managers
             this.graphicsDevice = graphicsDevice;
 
             drawables = new List<Drawable>();
+
+            stopwatch = new Stopwatch();
         }
 
         /// <summary>
@@ -58,9 +65,9 @@ namespace Avocado2D.Managers
         {
             base.Draw(spriteBatch);
 
-            graphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
+            stopwatch.Reset();
+            stopwatch.Start();
 
-            // Draw the scene
             graphicsDevice.Clear(scene.BackgroundColor);
 
             spriteBatch.Begin(samplerState: SamplerState.PointWrap, transformMatrix: camera.GetViewMatrix());
@@ -74,6 +81,8 @@ namespace Avocado2D.Managers
             }
 
             spriteBatch.End();
+            DrawTime = stopwatch.Elapsed;
+            stopwatch.Stop();
         }
     }
 }

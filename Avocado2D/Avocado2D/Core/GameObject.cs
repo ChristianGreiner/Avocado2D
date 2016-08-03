@@ -123,7 +123,7 @@ namespace Avocado2D
 
             foreach (var component in Components.ToArray())
             {
-                component.Initialize();
+                component.OnInitialize();
             }
         }
 

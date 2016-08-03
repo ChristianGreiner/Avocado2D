@@ -60,6 +60,8 @@ namespace Avocado2D
 
         #endregion EVENTS
 
+        public int GameObjects => gameObjects.Count;
+
         private readonly List<GameObject> gameObjectsToAdd;
         private readonly List<GameObject> gameObjectsToRemove;
         private readonly Dictionary<int, GameObject> gameObjects;

@@ -46,7 +46,7 @@ namespace Avocado2D
         /// <summary>
         /// Initializes the component.
         /// </summary>
-        public virtual void Initialize()
+        public virtual void OnInitialize()
         {
             Initialized = true;
             Enabled = true;
