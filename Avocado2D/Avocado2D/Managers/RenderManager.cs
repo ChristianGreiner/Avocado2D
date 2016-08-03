@@ -1,4 +1,5 @@
 ﻿using Avocado2D.Graphics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,13 @@ namespace Avocado2D.Managers
             this.scene = scene;
             this.camera = scene.Camera;
             this.graphicsDevice = graphicsDevice;
+
             drawables = new List<Drawable>();
         }
 
+        /// <summary>
+        /// Sorts the drawables by their draw order.
+        /// </summary>
         public void SortByDrawOrder()
         {
             this.drawables = drawables.OrderBy(x => x.DrawOrder).ToList();
@@ -53,6 +58,9 @@ namespace Avocado2D.Managers
         {
             base.Draw(spriteBatch);
 
+            graphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
+
+            // Draw the scene
             graphicsDevice.Clear(scene.BackgroundColor);
 
             spriteBatch.Begin(samplerState: SamplerState.PointWrap, transformMatrix: camera.GetViewMatrix());

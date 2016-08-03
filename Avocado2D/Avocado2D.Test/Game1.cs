@@ -2,6 +2,7 @@
 using Avocado2D.Test.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Avocado2D.Test
 {
@@ -19,15 +20,19 @@ namespace Avocado2D.Test
             SceneManager.AddScene(scene);
             SceneManager.SetActiveScene("Test");
 
-            var player = new GameObject();
+            scene.AddGameObject(CreatePlayer(Vector2.Zero));
+        }
 
+        private GameObject CreatePlayer(Vector2 position)
+        {
+            var player = new GameObject();
+            player.Transform.Position = position;
             player.AddComponent<TestComponent>();
             player.AddComponent<Rotator>();
 
             var sprite = player.AddComponent<Sprite>();
             sprite.Texture = Content.Load<Texture2D>("spaceship");
-
-            scene.AddGameObject(player);
+            return player;
         }
 
         protected override void LoadContent()
@@ -38,6 +43,14 @@ namespace Avocado2D.Test
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            var state = Mouse.GetState();
+
+            if (state.LeftButton == ButtonState.Pressed)
+            {
+                var player = CreatePlayer(state.Position.ToVector2());
+                SceneManager.GetScene("Test").AddGameObject(player);
+            }
         }
     }
 }

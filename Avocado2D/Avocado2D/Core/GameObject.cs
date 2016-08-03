@@ -145,14 +145,12 @@ namespace Avocado2D
 
             InitializeComponent(component);
 
-            //BUG: Required component doesn't work ...
+            // requires the comonent other components?
             foreach (var cmpType in component.RequiredComponents)
             {
-                if (!components.ContainsKey(cmpType))
-                {
-                    var newCmp = (Component)Activator.CreateInstance(cmpType);
-                    InitializeComponent(newCmp);
-                }
+                if (components.ContainsKey(cmpType)) continue;
+                var newCmp = (Component)Activator.CreateInstance(cmpType);
+                InitializeComponent(newCmp);
             }
 
             components.Add(typeof(T), component);
