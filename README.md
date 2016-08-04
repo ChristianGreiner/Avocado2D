@@ -37,10 +37,10 @@ public class MainMenu : Scene
 ```
 
 
-**Create a GameObject**
+**Create a Entity**
 
 ```csharp
-var player = new GameObject("Player");
+var player = new Entity("Player");
 
 // add some components to the gameobject 
 player.AddComponent<PlayerController>();
@@ -75,7 +75,7 @@ public class MyFancyComponent : Behavior
     // modify an other component
     public override OnInitialize()
     {
-        var otherComponent = GameObject.GetComponent<OtherComponent>();
+        var otherComponent = Entity.GetComponent<OtherComponent>();
         otherComponent.MovementSpeed = 20f;
     }
     
