@@ -86,9 +86,9 @@ namespace Avocado2D
             Camera = new Camera(adapter);
 
             EntityManager = new EntityManager(this);
+            CollisionManager = new CollisionManager(this);
             BehaviorManager = new BehaviorManager(this);
             RenderManager = new RenderManager(this, graphicsDevice);
-            CollisionManager = new CollisionManager(this);
         }
 
         /// <summary>
@@ -119,6 +119,7 @@ namespace Avocado2D
         /// <param name="gameTime">The gametime.</param>
         public virtual void Update(GameTime gameTime)
         {
+            EntityManager.Update(gameTime);
             CollisionManager.Update(gameTime);
             BehaviorManager.Update(gameTime);
         }

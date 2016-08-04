@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace Avocado2D.Managers
@@ -19,28 +20,24 @@ namespace Avocado2D.Managers
 
         #endregion EVENTS
 
-        private readonly List<Entitiy> entitiesToAdd;
-        private readonly List<Entitiy> entitiesToRemove;
-        private Dictionary<int, Entitiy> entities;
-        private Scene scene;
+        private readonly Dictionary<int, Entity> entities;
+        private readonly Scene scene;
 
         public EntityManager(Scene scene) : base(scene)
         {
             this.scene = scene;
-            entities = new Dictionary<int, Entitiy>();
-            entitiesToAdd = new List<Entitiy>();
-            entitiesToRemove = new List<Entitiy>();
+            entities = new Dictionary<int, Entity>();
         }
 
         /// <summary>
         /// Adds a entity to the scene.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        public void AddEntity(Entitiy entity)
+        public void Add(Entity entity)
         {
             if (entity == null) return;
             entity.Scene = scene;
-            entitiesToAdd.Add(entity);
+            entities.Add(entity.Id, entity);
             entity.Initialize();
             EntityAdded?.Invoke(this, new EntityEventArgs(entity));
         }
@@ -49,34 +46,51 @@ namespace Avocado2D.Managers
         /// Removes a entity from the scene.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        public void RemoveEntity(Entitiy entity)
+        public void Remove(Entity entity)
         {
             if (entity == null) return;
-            RemoveEntity(entity.Id);
+            Remove(entity.Id);
         }
 
         /// <summary>
         /// Removes a entity from the scene.
         /// </summary>
         /// <param name="id">The id of the entity.</param>
-        public void RemoveEntity(int id)
+        public void Remove(int id)
         {
             if (entities.ContainsKey(id))
             {
-                entitiesToRemove.Add(entities[id]);
+                entities.Remove(id);
             }
         }
 
         /// <summary>
-        /// Gets a entity from the scene.
+        /// Gets an entity from the scene.
         /// </summary>
         /// <param name="id">The id of the entity.</param>
         /// <returns>Returns the entity.</returns>
-        public Entitiy GetEntity(int id)
+        public Entity Get(int id)
         {
             if (entities.ContainsKey(id))
             {
                 return entities[id];
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets an entity from the scene.
+        /// </summary>
+        /// <param name="name">The name of the entity.</param>
+        /// <returns>Returns the entity.</returns>
+        public Entity Get(string name)
+        {
+            foreach (var entity in entities)
+            {
+                if (entity.Value.Name.EndsWith(name))
+                {
+                    return entity.Value;
+                }
             }
             return null;
         }

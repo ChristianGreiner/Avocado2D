@@ -7,9 +7,9 @@ namespace Avocado2D
         /// <summary>
         /// Gets the entity.
         /// </summary>
-        public Entitiy Entity { get; }
+        public Entity Entity { get; }
 
-        public EntityEventArgs(Entitiy entity)
+        public EntityEventArgs(Entity entity)
         {
             Entity = entity;
         }

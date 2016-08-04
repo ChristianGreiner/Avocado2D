@@ -9,7 +9,7 @@ namespace Avocado2D
         /// <summary>
         /// Gets or sets the entity of the component.
         /// </summary>
-        public Entitiy Entity { get; set; }
+        public Entity Entity { get; set; }
 
         /// <summary>
         /// Whether or not the component is initialized.

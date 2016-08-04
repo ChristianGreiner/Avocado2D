@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Avocado2D
 {
-    public class Entitiy : IDisposable
+    public class Entity : IDisposable
     {
         /// <summary>
         /// Gets the id of the entity.
@@ -70,7 +70,7 @@ namespace Avocado2D
         private List<Drawable> tmpDrawables;
         private List<Behavior> tmpBehavior;
 
-        public Entitiy(string name = null)
+        public Entity(string name = null)
         {
             Id = nextId++;
             if (string.IsNullOrEmpty(name))
@@ -234,7 +234,7 @@ namespace Avocado2D
         public void Dispose()
         {
             components.Clear();
-            Scene?.EntityManager.RemoveEntity(this);
+            Scene?.EntityManager.Remove(this);
         }
     }
 }

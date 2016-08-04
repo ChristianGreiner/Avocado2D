@@ -58,7 +58,7 @@
     <Compile Include="Core\RequiredComponentAttribute.cs" />
     <Compile Include="EventArgs\CollisionEventArgs.cs" />
     <Compile Include="EventArgs\ComponentEventArgs.cs" />
-    <Compile Include="Core\Entitiy.cs" />
+    <Compile Include="Core\Entity.cs" />
     <Compile Include="EventArgs\EntityEventArgs.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\ColorConverter.cs" />
