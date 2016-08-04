@@ -18,13 +18,13 @@ namespace Avocado2D.Managers
 
             colliders = new HashSet<Collider>();
 
-            scene.GameObjectAdded += GameObjectAdded;
-            scene.GameObjectRemoved += GameObjectRemoved;
+            scene.EntityManager.EntityAdded += EntityAdded;
+            scene.EntityManager.EntityRemoved += EntityRemoved;
         }
 
-        private void GameObjectRemoved(object sender, GameObjectEventArgs gameObjectEventArgs)
+        private void EntityRemoved(object sender, EntityEventArgs entityEventArgs)
         {
-            var gameObj = gameObjectEventArgs.GameObject;
+            var gameObj = entityEventArgs.Entity;
             if (gameObj.GetComponent<Collider>() == null) return;
 
             var collider = gameObj.GetComponent<Collider>();
@@ -32,9 +32,9 @@ namespace Avocado2D.Managers
             grid.RemoveCollider(collider);
         }
 
-        private void GameObjectAdded(object sender, GameObjectEventArgs gameObjectEventArgs)
+        private void EntityAdded(object sender, EntityEventArgs entityEventArgs)
         {
-            var gameObj = gameObjectEventArgs.GameObject;
+            var gameObj = entityEventArgs.Entity;
             if (gameObj.GetComponent<Collider>() == null) return;
 
             var collider = gameObj.GetComponent<Collider>();

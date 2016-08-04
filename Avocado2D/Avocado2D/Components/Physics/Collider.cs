@@ -28,7 +28,7 @@ namespace Avocado2D.Components
         public override void OnInitialize()
         {
             base.OnInitialize();
-            Bounds = new RectangleF((Offset.X + GameObject.Transform.Position.X), (Offset.Y + GameObject.Transform.Position.Y), width, height);
+            Bounds = new RectangleF((Offset.X + Entity.Transform.Position.X), (Offset.Y + Entity.Transform.Position.Y), width, height);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Avocado2D.Components
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Bounds = new RectangleF((Offset.X + GameObject.Transform.Position.X), (Offset.Y + GameObject.Transform.Position.Y), width, height);
+            Bounds = new RectangleF((Offset.X + Entity.Transform.Position.X), (Offset.Y + Entity.Transform.Position.Y), width, height);
         }
     }
 }

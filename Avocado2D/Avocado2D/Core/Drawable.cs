@@ -18,7 +18,7 @@ namespace Avocado2D
             set
             {
                 drawOrder = value;
-                GameObject?.ComponentDrawOrderChanged.Invoke(this, new ComponentEventArgs(this));
+                Entity?.ComponentDrawOrderChanged.Invoke(this, new ComponentEventArgs(this));
             }
         }
 

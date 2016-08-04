@@ -7,9 +7,9 @@ namespace Avocado2D
     public class Component : IDisposable
     {
         /// <summary>
-        /// Gets or sets the gameobject of the component.
+        /// Gets or sets the entity of the component.
         /// </summary>
-        public GameObject GameObject { get; set; }
+        public Entitiy Entity { get; set; }
 
         /// <summary>
         /// Whether or not the component is initialized.
@@ -53,18 +53,18 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Gets called when the component gets removed from the gameobject.
+        /// Gets called when the component gets removed from the entity.
         /// </summary>
         public virtual void OnRemove()
         {
         }
 
         /// <summary>
-        /// Removes the component from the gameobject.
+        /// Removes the component from the entity.
         /// </summary>
         public void Dispose()
         {
-            GameObject?.RemoveComponent(GetType());
+            Entity?.RemoveComponent(GetType());
         }
     }
 }

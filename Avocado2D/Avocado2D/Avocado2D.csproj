@@ -58,8 +58,8 @@
     <Compile Include="Core\RequiredComponentAttribute.cs" />
     <Compile Include="EventArgs\CollisionEventArgs.cs" />
     <Compile Include="EventArgs\ComponentEventArgs.cs" />
-    <Compile Include="Core\GameObject.cs" />
-    <Compile Include="EventArgs\GameObjectEventArgs.cs" />
+    <Compile Include="Core\Entitiy.cs" />
+    <Compile Include="EventArgs\EntityEventArgs.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\ColorConverter.cs" />
     <Compile Include="Graphics\SolidColorTexture.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="GameSettings.cs" />
     <Compile Include="Managers\BehaviorManager.cs" />
     <Compile Include="Managers\CollisionManager.cs" />
-    <Compile Include="Managers\GameObjectManager.cs" />
+    <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="Managers\RenderManager.cs" />
     <Compile Include="Physics\Collision\CollisionContact.cs" />

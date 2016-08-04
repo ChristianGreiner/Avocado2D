@@ -56,7 +56,7 @@ namespace Avocado2D.Components
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (texture == null) return;
-            spriteBatch.Draw(Texture, GameObject.Transform.Position, null, Source, TextureOrigin, GameObject.Transform.Rotation, GameObject.Transform.Scale, ColorTint, SpriteEffect, 0f);
+            spriteBatch.Draw(Texture, Entity.Transform.Position, null, Source, TextureOrigin, Entity.Transform.Rotation, Entity.Transform.Scale, ColorTint, SpriteEffect, 0f);
         }
     }
 }

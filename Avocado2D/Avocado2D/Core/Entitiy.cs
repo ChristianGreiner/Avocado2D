@@ -6,25 +6,25 @@ using System.Linq;
 
 namespace Avocado2D
 {
-    public class GameObject : IDisposable
+    public class Entitiy : IDisposable
     {
         /// <summary>
-        /// Gets the id of the gameobject.
+        /// Gets the id of the entity.
         /// </summary>
         public int Id { get; }
 
         /// <summary>
-        /// Gets or sets the name of the gameobject.
+        /// Gets or sets the name of the entity.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The scene this gameobject belongs to.
+        /// The scene this entity belongs to.
         /// </summary>
         public Scene Scene { get; set; }
 
         /// <summary>
-        /// Whether or not the gameobject is enabled.
+        /// Whether or not the entity is enabled.
         /// </summary>
         public bool Enabled { get; set; }
 
@@ -53,12 +53,12 @@ namespace Avocado2D
         #endregion EVENTS
 
         /// <summary>
-        /// Gets all components of the gameobject.
+        /// Gets all components of the entity.
         /// </summary>
         public IReadOnlyList<Component> Components => components.Values.ToArray();
 
         /// <summary>
-        /// Gets the transform component of the gameobject.
+        /// Gets the transform component of the entity.
         /// </summary>
         public Transform Transform { get; }
 
@@ -70,12 +70,12 @@ namespace Avocado2D
         private List<Drawable> tmpDrawables;
         private List<Behavior> tmpBehavior;
 
-        public GameObject(string name = null)
+        public Entitiy(string name = null)
         {
             Id = nextId++;
             if (string.IsNullOrEmpty(name))
             {
-                Name = "GameObject" + Id;
+                Name = "Entity" + Id;
             }
 
             components = new Dictionary<Type, Component>();
@@ -99,7 +99,7 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Initializes the gameobject and all his components.
+        /// Initializes the entity and all his components.
         /// </summary>
         public void Initialize()
         {
@@ -128,7 +128,7 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Adds a component to the gameobject.
+        /// Adds a component to the entity.
         /// If the type of the component is already added to the list,
         /// it will returns this type of component.
         /// </summary>
@@ -136,7 +136,7 @@ namespace Avocado2D
         /// <returns>Returns the added component.</returns>
         public T AddComponent<T>() where T : Component, new()
         {
-            // check if the gameobject owns alreday this type of component.
+            // check if the entity owns alreday this type of component.
             if (components.ContainsKey(typeof(T)))
             {
                 return (T)components[typeof(T)];
@@ -161,7 +161,7 @@ namespace Avocado2D
 
         private void InitializeComponent(Component component)
         {
-            component.GameObject = this;
+            component.Entity = this;
 
             // check if the component is an updatable component
             if (component.GetType().IsSubclassOf(typeof(Behavior)))
@@ -179,7 +179,7 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Gets a component from the gameobject.
+        /// Gets a component from the entity.
         /// </summary>
         /// <typeparam name="T">The type of the component.</typeparam>
         /// <returns>Returns the component.</returns>
@@ -193,9 +193,9 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Removes the component from the gameobject.
+        /// Removes the component from the entity.
         /// </summary>
-        /// <typeparam name="T">The type of the gameobject.</typeparam>
+        /// <typeparam name="T">The type of the entity.</typeparam>
         public void RemoveComponent<T>() where T : Component
         {
             var type = typeof(T);
@@ -203,9 +203,9 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Removes the component from the gameobject.
+        /// Removes the component from the entity.
         /// </summary>
-        /// <param name="type">The type of the gameobject.</param>
+        /// <param name="type">The type of the entity.</param>
         public void RemoveComponent(Type type)
         {
             var cmp = components[type];
@@ -229,12 +229,12 @@ namespace Avocado2D
         }
 
         /// <summary>
-        /// Disposes the gameobject.
+        /// Disposes the entity.
         /// </summary>
         public void Dispose()
         {
             components.Clear();
-            Scene?.RemoveGameObject(this);
+            Scene?.EntityManager.RemoveEntity(this);
         }
     }
 }

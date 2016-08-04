@@ -47,7 +47,7 @@ namespace Avocado2D.Physics.Collision
         public void AddCollider(Collider collider)
         {
             var cells = CalculateCells(collider);
-            colliderMap.Add(collider.GameObject.Id, cells);
+            colliderMap.Add(collider.Entity.Id, cells);
             foreach (var cell in cells)
             {
                 cell.Colliders.Add(collider);
@@ -60,7 +60,7 @@ namespace Avocado2D.Physics.Collision
         /// <param name="collider">The collider.</param>
         public void RemoveCollider(Collider collider)
         {
-            var cells = colliderMap[collider.GameObject.Id];
+            var cells = colliderMap[collider.Entity.Id];
             foreach (var cell in cells)
             {
                 cell.Colliders.Remove(collider);
@@ -69,7 +69,7 @@ namespace Avocado2D.Physics.Collision
 
         public void Move(Collider collider)
         {
-            var cells = colliderMap[collider.GameObject.Id];
+            var cells = colliderMap[collider.Entity.Id];
             foreach (var cell in cells)
             {
                 if (!collider.Bounds.IntersectsWith(cell.Bounds))
@@ -83,7 +83,7 @@ namespace Avocado2D.Physics.Collision
 
         public HashSet<Collider> Query(Collider collider)
         {
-            var id = collider.GameObject.Id;
+            var id = collider.Entity.Id;
             var colliders = new HashSet<Collider>();
 
             foreach (var entry in colliderMap[id])

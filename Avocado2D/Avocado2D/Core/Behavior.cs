@@ -13,7 +13,7 @@ namespace Avocado2D
             set
             {
                 updateOrder = value;
-                GameObject?.ComponentUpdateOrderChanged.Invoke(this, new ComponentEventArgs(this));
+                Entity?.ComponentUpdateOrderChanged.Invoke(this, new ComponentEventArgs(this));
             }
         }
 

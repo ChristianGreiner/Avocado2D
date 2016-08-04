@@ -24,13 +24,13 @@ namespace Avocado2D.Test
             SceneManager.AddScene(scene);
             SceneManager.SetActiveScene("Test");
 
-            scene.AddGameObject(CreatePlayer(Vector2.Zero));
-            scene.AddGameObject(CreatePlayer(new Vector2(100, 100)));
+            scene.EntityManager.AddEntity(CreatePlayer(Vector2.Zero));
+            scene.EntityManager.AddEntity(CreatePlayer(new Vector2(100, 100)));
         }
 
-        private GameObject CreatePlayer(Vector2 position)
+        private Entitiy CreatePlayer(Vector2 position)
         {
-            var player = new GameObject();
+            var player = new Entitiy();
             player.Transform.Position = position;
             player.AddComponent<TestComponent>();
             player.AddComponent<Rotator>();
@@ -58,7 +58,7 @@ namespace Avocado2D.Test
             if (state.LeftButton == ButtonState.Pressed)
             {
                 var player = CreatePlayer(state.Position.ToVector2());
-                scene.AddGameObject(player);
+                scene.EntityManager.AddEntity(player);
             }
 
             if (keyboard.IsKeyDown(Keys.Right))

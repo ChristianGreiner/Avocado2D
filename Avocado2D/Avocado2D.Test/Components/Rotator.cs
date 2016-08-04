@@ -10,7 +10,7 @@ namespace Avocado2D.Test.Components
             base.Update(gameTime);
 
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            GameObject.Transform.Rotation += 10f * delta;
+            Entity.Transform.Rotation += 10f * delta;
         }
     }
 }

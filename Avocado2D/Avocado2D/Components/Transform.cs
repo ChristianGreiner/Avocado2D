@@ -5,17 +5,17 @@ namespace Avocado2D.Components
     public class Transform : Behavior
     {
         /// <summary>
-        /// Gets or sets the position of the gameobject.
+        /// Gets or sets the position of the entity.
         /// </summary>
         public Vector2 Position { get; set; }
 
         /// <summary>
-        /// Gets or sets ther rotation f the gameobject.
+        /// Gets or sets ther rotation f the entity.
         /// </summary>
         public float Rotation { get; set; }
 
         /// <summary>
-        /// Gets or sets the scale of the gameobject.
+        /// Gets or sets the scale of the entity.
         /// </summary>
         public Vector2 Scale { get; set; }
 
