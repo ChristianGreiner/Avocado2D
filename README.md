@@ -42,16 +42,20 @@ public class MainMenu : Scene
 ```csharp
 var player = new Entity("Player");
 
-// add some components to the gameobject 
+// add some components to the entity 
 player.AddComponent<PlayerController>();
 var healthComponent = player.AddComponent<HealthComponent>();
 healthComponent.Health = 100;
 
-// removes a component from the gameobject
+// removes a component from the entity
 player.RemoveComponent<HealthComponent>();
 
-// assign the gameobject to the scene
-myScene.AddGameObject(player);
+// assign the entity to the scene
+myScene.EntityManager.Add(player);
+
+// get an entity from the scene
+var player = myScene.EntityManager.Get("Player"); // by name
+var enemy = myScene.EntityManager.Get(1); // by id -> it's faster
 
 ```
 
