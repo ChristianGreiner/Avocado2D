@@ -1,6 +1,6 @@
 # Avocado2D
 
-### PROJECT CANCELLD
+### PROJECT CANCELLED
 
 Avocado2D is a type of gameengine for [MonoGame](http://www.monogame.net/).
 
